@@ -31,7 +31,7 @@ export class AdminAuthGuard implements CanActivate {
     if (!token) throw new UnauthorizedException('Missing admin token');
 
     try {
-      const payload = this.auth.verifyToken(token as string);
+      const payload = this.auth.verifyToken(token);
       // attach user info if needed
       req.admin = payload;
       return true;

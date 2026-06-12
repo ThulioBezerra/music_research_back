@@ -75,7 +75,7 @@ export class SpotifyService {
       trackId,
       previewUrl: data.preview_url ?? null,
       title: data.name,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
       artists: Array.isArray(data.artists)
         ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
           data.artists.map((a: any) => a.name)
@@ -103,8 +103,7 @@ export class SpotifyService {
     if (cached) {
       const updatedAt = new Date(cached.updatedAt).getTime();
       if (now - updatedAt < ttl) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        return { ...(cached.metadata as any) } as TrackMetadata;
+        return { ...cached.metadata } as TrackMetadata;
       }
     }
 
