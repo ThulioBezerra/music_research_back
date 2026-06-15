@@ -19,6 +19,7 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "test-db": "ts-node --project tsconfig.scripts.json --transpile-only scripts/test-db.ts",
+    "export-responses": "ts-node --project tsconfig.scripts.json --transpile-only scripts/export-responses.ts",
     "prisma:migrate": "prisma migrate dev --name auto_update",
     "prisma:generate": "prisma generate",
     "db:backup": "powershell -ExecutionPolicy Bypass -File scripts/backup-db.ps1",
@@ -64,6 +65,9 @@
     "@sentry/node": "^8.12.0",
     "uuid": "^9.0.0",
     "@types/uuid": "^9.0.1"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["@nestjs/core", "@prisma/client", "@prisma/engines", "prisma", "unrs-resolver"]
   },
   "jest": {
     "moduleFileExtensions": [
