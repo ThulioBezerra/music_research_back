@@ -191,14 +191,27 @@ export class SessionService {
 
   /**
    * Mark session complete. Accepts optional exit_ts (epoch ms). Calculates totalSeconds.
+   * Also stores the participant demographics (deferred until the survey is finalized).
    * Idempotent: if session already completed, returns current values.
    */
-  async completeSession(sessionId: string, exitTsMs?: number) {
+  async completeSession(
+    sessionId: string,
+    exitTsMs?: number,
+    demographics?: Record<string, unknown>,
+  ) {
     const session = await this.prisma.session.findUnique({
       where: { id: sessionId },
     });
     if (!session) {
       throw new HttpException('Session not found', HttpStatus.NOT_FOUND);
+    }
+
+    if (demographics != null) {
+      await this.prisma.participant.update({
+        where: { id: session.participantId },
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        data: { demographics } as any,
+      });
     }
 
     if (session.completed) {

@@ -40,7 +40,11 @@ export class SessionController {
   @Post('complete')
   async complete(@Body() body: CompleteSessionDto) {
     try {
-      return await this.svc.completeSession(body.session_id, body.exit_ts);
+      return await this.svc.completeSession(
+        body.session_id,
+        body.exit_ts,
+        body.demographics,
+      );
     } catch (err: any) {
       if (err instanceof HttpException) throw err;
       throw new HttpException(

@@ -1,4 +1,4 @@
-import { IsString, IsOptional, IsNumber } from 'class-validator';
+import { IsString, IsOptional, IsNumber, IsObject } from 'class-validator';
 
 export class CompleteSessionDto {
   @IsString()
@@ -7,4 +7,8 @@ export class CompleteSessionDto {
   @IsOptional()
   @IsNumber()
   exit_ts?: number; // epoch ms
+
+  @IsOptional()
+  @IsObject()
+  demographics?: Record<string, unknown>;
 }
